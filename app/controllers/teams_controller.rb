@@ -52,7 +52,7 @@ class TeamsController < ApplicationController
     last_leader = @team.owner.email
     @team.owner_id = params[:leader]
     @team.save()
-    # LeaderChangeMailer.authority_change(@team.owner.email, last_leader).deliver
+    LeaderChangeMailer.leader_change_mailer(@team.owner.email, last_leader).deliver
     redirect_to @team, notice:"Team leader changed"
   end
 
