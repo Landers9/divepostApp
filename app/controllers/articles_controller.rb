@@ -29,13 +29,11 @@ class ArticlesController < ApplicationController
     article = agenda.articles.build(article_params)
     article.user = current_user
     article.team_id = agenda.team_id
-    # if article.valid?
     if article.save
       redirect_to article_url(article), notice: I18n.t('views.messages.create_article')
     else
       render :new
     end
-    # end
   end
 
   def update
