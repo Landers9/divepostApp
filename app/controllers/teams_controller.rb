@@ -47,6 +47,15 @@ class TeamsController < ApplicationController
     @team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : current_user.teams.first
   end
 
+  def leader_team
+    @team = Team.friendly.find(params[:team])
+    last_leader = @team.owner.email
+    @team.owner_id = params[:leader]
+    @team.save()
+    # LeaderChangeMailer.authority_change(@team.owner.email, last_leader).deliver
+    redirect_to @team, notice:"Team leader changed"
+  end
+
   private
 
   def set_team
